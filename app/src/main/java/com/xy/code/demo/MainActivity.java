@@ -1,19 +1,19 @@
-package com.xy.code.recycleradapter;
+package com.xy.code.demo;
 
 import android.animation.Animator;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xy.code.recycleradapter.FlexbleRecyclerAdapter;
+import com.xy.code.recycleradapter.FlexbleRecyclerAdapter.ItemViewHolder;
 import com.xy.code.recycleradapter.animator.AnimatorExtractor;
 import com.xy.code.recycleradapter.base.AnimatorConstrctor;
-import com.xy.code.recycleradapter.base.ItemViewHolder;
 import com.xy.code.recycleradapter.base.ViewBinder;
 import com.xy.code.recycleradapter.listener.OnItemClickListener;
 import com.xy.code.recycleradapter.listener.OnItemLongClickListener;
@@ -38,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 .itemInAnimator(new AnimatorConstrctor() {
                     @Override
                     public Animator[] createAnimator(ItemViewHolder viewHolder, int postion) {
-                        return AnimatorExtractor.extractSlideInAnimator(viewHolder.itemView,AnimatorExtractor.SLIDE_IN_BOTTOM);
+                        return AnimatorExtractor.extractSlideInAnimator(viewHolder.itemView, AnimatorExtractor.SLIDE_IN_BOTTOM);
                     }
                 })
+                .footerView(R.layout.footer_layout)
+                .headerView(R.layout.header_layout)
                 .onItemClickListener(new OnItemClickListener<String>() {
                     @Override
                     public void onItemClick(View v, int postion, String data) {
@@ -56,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .viewBinder(new ViewBinder<String>() {
                     @Override
-                    public void onBindView(ItemViewHolder holder, String data) {
+                    public void onBindView(final ItemViewHolder holder, String data) {
+                        Log.i("onBindView",holder.getAdapterPosition()+"");
                         holder.setText(R.id.tv_text, data);
+                        holder.setTextColorResource(R.id.tv_text, R.color.colorAccent);
                     }
                 })
                 .build());
@@ -65,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> getData() {
         List<String> data = new ArrayList<>();
-        for (int i = 1; i <= 40; i++) {
+        for (int i = 1; i <= 30; i++) {
             data.add(String.valueOf(i));
         }
         return data;
     }
+
 }

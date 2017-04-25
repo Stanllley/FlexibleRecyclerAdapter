@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xy.code.recycleradapter">
+    package="com.xy.code.demo">
 
     <application
         android:allowBackup="true"
