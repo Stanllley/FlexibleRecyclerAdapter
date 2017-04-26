@@ -10,6 +10,10 @@ android:
     #extra android support
     - extra-android-support
     - extra-android-m2repository
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk6
 
 before_install:
     - chmod +x gradlew
