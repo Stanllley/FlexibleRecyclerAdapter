@@ -1,8 +1,9 @@
 language: android
 android:
   components:
-
-    - platform-tools-25.0.5
+    - tools
+    - tools
+    - platform-tools
     # The BuildTools version
     - build-tools-25.0.2
     #The SDK version
@@ -11,9 +12,7 @@ android:
     - extra-android-support
     - extra-android-m2repository
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
 jdk:
   - oraclejdk8
 
