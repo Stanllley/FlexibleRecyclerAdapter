@@ -20,4 +20,5 @@ jdk:
 before_install:
   - chmod +x gradlew
     
-
+script:
+  - adb devices
