@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
                     }
                 })
-                .onItemLongClickListener(new OnItemLongClickListener() {
+                .onItemLongClickListener(new OnItemLongClickListener<String>() {
                     @Override
-                    public boolean onLongClick(View v, int position, Object data) {
+                    public boolean onLongClick(View v, int position, String data) {
                         adapter.removeItem(position);
                         return true;
                     }
