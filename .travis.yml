@@ -10,10 +10,12 @@ android:
     #extra android support
     - extra-android-support
     - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 jdk:
   - oraclejdk8
-  - oraclejdk7
-  - openjdk6
 
 before_install:
     - chmod +x gradlew
