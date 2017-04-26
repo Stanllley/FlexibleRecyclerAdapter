@@ -35,7 +35,7 @@ import java.util.List;
  * Created by android on 2017/3/14.
  */
 
-public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyclerAdapter.ItemViewHolder> {
+public class FlexbleRecyclerAdapter extends RecyclerView.Adapter<FlexbleRecyclerAdapter.ItemViewHolder> {
 
     private static final String TAG = FlexbleRecyclerAdapter.class.getSimpleName();
 
@@ -46,7 +46,7 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
     public static final int ITEM_TYPE_DATA = 2;
 
 
-    private Builder<T> builder;
+    private Builder builder;
 
     private ViewListenerImpl viewListener;
 
@@ -59,7 +59,7 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
 
     }
 
-    public FlexbleRecyclerAdapter(Builder<T> builder) {
+    public FlexbleRecyclerAdapter(Builder builder) {
         this.builder = builder;
     }
 
@@ -100,12 +100,12 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
         attachListners(holder);
     }
 
-    public T getItem(int position) {
-        return getData().get(position);
+    public <T>T getItem(int position) {
+        return (T) getData().get(position);
     }
 
-    public List<T> getData() {
-        return builder.getData();
+    public <T>List<T> getData() {
+        return (List<T>) builder.mData;
     }
 
     @Override
@@ -167,12 +167,12 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
         notifyItemRemoved(position);
     }
 
-    public void addItem(T data) {
+    public <T>void addItem(T data) {
         getData().add(data);
         notifyItemInserted(getItemCount() - 1);
     }
 
-    public void addItem(int postion, T data) {
+    public <T>void addItem(int postion, T data) {
         getData().add(postion, data);
         notifyItemInserted(postion);
     }
@@ -226,11 +226,11 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
         mLastAttachedPosition = holder.getAdapterPosition() > mLastAttachedPosition ? holder.getAdapterPosition() : mLastAttachedPosition;
     }
 
-    public Builder<T> getBuilder() {
+    public Builder getBuilder() {
         return builder;
     }
 
-    public static class Builder<T> {
+    public static class Builder {
 
         private ViewBinder mViewBinder;
 
@@ -240,11 +240,11 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
 
         private int mFooterViewId;
 
-        private List<T> mData;
+        private List mData;
 
-        private OnItemClickListener<T> mOnItemClickListener;
+        private OnItemClickListener mOnItemClickListener;
 
-        private OnItemLongClickListener<T> mOnItemLongClickListener;
+        private OnItemLongClickListener mOnItemLongClickListener;
 
         private OnHeaderViewClickListener mOnHeaderViewClickListener;
 
@@ -259,13 +259,9 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
         }
 
 
-        public Builder data(List<T> data) {
+        public <T>Builder data(List<T> data) {
             this.mData = data;
             return this;
-        }
-
-        protected List<T> getData() {
-            return mData;
         }
 
         public Builder itemInAnimator(AnimatorConstrctor animatorConstrctor) {
@@ -308,8 +304,8 @@ public class FlexbleRecyclerAdapter<T> extends RecyclerView.Adapter<FlexbleRecyc
             return this;
         }
 
-        public FlexbleRecyclerAdapter<T> build() {
-            return new FlexbleRecyclerAdapter<T>(this);
+        public FlexbleRecyclerAdapter build() {
+            return new FlexbleRecyclerAdapter(this);
         }
     }
 

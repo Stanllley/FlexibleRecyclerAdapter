@@ -15,6 +15,8 @@ import com.xy.code.recycleradapter.FlexbleRecyclerAdapter.ItemViewHolder;
 import com.xy.code.recycleradapter.animator.AnimatorExtractor;
 import com.xy.code.recycleradapter.base.AnimatorConstrctor;
 import com.xy.code.recycleradapter.base.ViewBinder;
+import com.xy.code.recycleradapter.listener.OnFooterViewClickListener;
+import com.xy.code.recycleradapter.listener.OnHeaderViewClickListener;
 import com.xy.code.recycleradapter.listener.OnItemClickListener;
 import com.xy.code.recycleradapter.listener.OnItemLongClickListener;
 
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = (RecyclerView) findViewById(R.id.listView);
         listView.setLayoutManager(new LinearLayoutManager(this));
-        listView.setAdapter(adapter = new FlexbleRecyclerAdapter.Builder<String>()
+        listView.setAdapter(adapter = new FlexbleRecyclerAdapter.Builder()
                 .data(getData())
                 .itemLayoutId(R.layout.item_layout)
                 .itemInAnimator(new AnimatorConstrctor() {
@@ -54,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onLongClick(View v, int position, Object data) {
                         adapter.removeItem(position);
                         return true;
+                    }
+                })
+                .onHeaderViewCLickListener(new OnHeaderViewClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "headerView", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onFooterViewCLickListener(new OnFooterViewClickListener() {
+                    @Override
+                    public void onCLick(View v) {
+                        Toast.makeText(getApplicationContext(), "footerView", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .viewBinder(new ViewBinder<String>() {
