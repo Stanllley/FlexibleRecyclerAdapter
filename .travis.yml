@@ -18,5 +18,13 @@ jdk:
   - oraclejdk8
 
 before_install:
-    - chmod +x gradlew
+    #- chmod +x gradlew
+    
+script:
+# force init of adb way before any Gradle task that uses ADB; prevents a timeout error that skips emulators of android-24
+  - adb devices
+# build app and assemble APK, in debug mode
+  - ./gradlew assembleDebug
+# run all the local unit tests of app module
+  - ./gradlew :testDebug
 
